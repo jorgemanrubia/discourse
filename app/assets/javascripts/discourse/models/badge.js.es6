@@ -155,7 +155,7 @@ Badge.reopenClass({
 
 
   /**
-   Calculate the badges that are grantable: those that are not in use already
+   Calculate the badges that are grantable: those that are not already in use
    or that can be granted multiple times
 
    @method calculateGrantableBadges
