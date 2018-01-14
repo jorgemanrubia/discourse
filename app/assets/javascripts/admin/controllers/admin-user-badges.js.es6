@@ -1,4 +1,5 @@
 import UserBadge from 'discourse/models/user-badge';
+import Badge from 'discourse/models/badge';
 
 export default Ember.Controller.extend({
   adminUser: Ember.inject.controller(),
@@ -48,7 +49,7 @@ export default Ember.Controller.extend({
     @type {Boolean}
   **/
   grantableBadges: function() {
-    return UserBadge.calculateGrantableBadges(this.get('badges'), this.get('model'));
+    return Badge.calculateGrantableBadges(this.get('badges'), this.get('model').mapBy('badge_id'));
   }.property('badges.[]', 'model.[]'),
 
   /**

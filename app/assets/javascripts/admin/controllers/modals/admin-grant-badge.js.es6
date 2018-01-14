@@ -43,7 +43,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
   @computed('badgesInUse.[]', 'allBadges.[]')
   grantableBadges() {
-    return UserBadge.calculateGrantableBadges(this.get('allBadges'), this.get('badgesInUse'));
+    return Badge.calculateGrantableBadges(this.get('allBadges'), this.get('badgesInUse').mapBy('badge_id'));
   },
 
   actions: {

@@ -151,6 +151,32 @@ Badge.reopenClass({
     return ajax("/badges/" + id).then(function(badgeJson) {
       return Badge.createFromJson(badgeJson);
     });
+  },
+
+
+  /**
+   Calculate the badges that are grantable: those that are not in use already
+   or that can be granted multiple times
+
+   @method calculateGrantableBadges
+   @param {Array} allBadges
+   @param {Array} usedBadgesIds list of ids for badges in use
+   @returns {Promise} an array containing the grantable badges.
+   **/
+  calculateGrantableBadges: function (allBadges, usedBadgesIds) {
+    var granted = {};
+    usedBadgesIds.forEach(function (badgeId) {
+      granted[badgeId] = true;
+    });
+
+    var badges = [];
+    allBadges.forEach(function (badge) {
+      if (badge.get('enabled') && (badge.get('multiple_grant') || !granted[badge.get('id')])) {
+        badges.push(badge);
+      }
+    });
+
+    return _.sortBy(badges, badge => badge.get('name'));
   }
 });
 
