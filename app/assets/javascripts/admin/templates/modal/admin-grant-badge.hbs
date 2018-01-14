@@ -12,6 +12,9 @@
 <div class="modal-footer">
   <button class='btn btn-primary' {{action "grantBadge" selectedBadgeId}}>{{i18n
           'admin.badges.grant'}}</button>
+
+  {{conditional-loading-spinner size="small" condition=saving}}
+
 </div>
 
 

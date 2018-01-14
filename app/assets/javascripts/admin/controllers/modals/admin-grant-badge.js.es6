@@ -5,6 +5,7 @@ import Badge from 'discourse/models/badge';
 
 export default Ember.Controller.extend(ModalFunctionality, {
   loading: null,
+  saving: null,
   userBadges: null,
   allBadges: null,
   post: null,
@@ -52,7 +53,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
   actions: {
     grantBadge(badgeId) {
       const badgeReason = this.get('post.url');
+      this.set('saving', true);
       UserBadge.grant(badgeId, this.get('username'), badgeReason).then(userBadge => {
+        this.set('saving', false);
         this.send("closeModal");
       }, function () {
         bootbox.alert(I18n.t('generic_error'));
