@@ -7,7 +7,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
   loading: null,
   saving: null,
   allBadges: null,
-  badgesInUse: null,
+  userBadges: null,
   post: null,
   username: Ember.computed.alias('post.username'),
 
@@ -19,18 +19,18 @@ export default Ember.Controller.extend(ModalFunctionality, {
     this.set('post', post);
     this._findBadges().then(result => {
       this.set('allBadges', result.allBadges);
-      this.set('badgesInUse', result.badgesInUse);
+      this.set('userBadges', result.userBadges);
       this._selectFirstBadge();
     }).finally(() => this.set('loading', false));
   },
 
   _findBadges(){
     const allBadges = Badge.findAll();
-    const badgesInUse = UserBadge.findByUsername(this.get('username'));
+    const userBadges = UserBadge.findByUsername(this.get('username'));
 
     return Ember.RSVP.hash({
       allBadges,
-      badgesInUse
+      userBadges
     });
   },
 
@@ -41,9 +41,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
       this.set('selectedBadgeId', grantableBadges[0].get('id'));
   },
 
-  @computed('badgesInUse.[]', 'allBadges.[]')
+  @computed('userBadges.[]', 'allBadges.[]')
   grantableBadges() {
-    return Badge.calculateGrantableBadges(this.get('allBadges'), this.get('badgesInUse').mapBy('badge_id'));
+    return Badge.calculateGrantableBadges(this.get('allBadges'), this.get('userBadges').mapBy('badge_id'));
   },
 
   actions: {
