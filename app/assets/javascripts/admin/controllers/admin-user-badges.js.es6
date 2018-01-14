@@ -48,19 +48,7 @@ export default Ember.Controller.extend({
     @type {Boolean}
   **/
   grantableBadges: function() {
-    var granted = {};
-    this.get('model').forEach(function(userBadge) {
-      granted[userBadge.get('badge_id')] = true;
-    });
-
-    var badges = [];
-    this.get('badges').forEach(function(badge) {
-      if (badge.get('enabled') && (badge.get('multiple_grant') || !granted[badge.get('id')])) {
-        badges.push(badge);
-      }
-    });
-
-    return _.sortBy(badges, badge => badge.get('name'));
+    return UserBadge.calculateGrantableBadges(this.get('badges'), this.get('model'));
   }.property('badges.[]', 'model.[]'),
 
   /**

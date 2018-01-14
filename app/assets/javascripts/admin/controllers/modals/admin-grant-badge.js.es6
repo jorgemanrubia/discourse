@@ -42,20 +42,8 @@ export default Ember.Controller.extend(ModalFunctionality, {
   },
 
   @computed('badgesInUse.[]', 'allBadges.[]')
-  grantableBadges(badges) {
-    var granted = {};
-    this.get('badgesInUse').forEach(function (userBadge) {
-      granted[userBadge.get('badge_id')] = true;
-    });
-
-    var badges = [];
-    this.get('allBadges').forEach(function (badge) {
-      if (badge.get('enabled') && (badge.get('multiple_grant') || !granted[badge.get('id')])) {
-        badges.push(badge);
-      }
-    });
-
-    return _.sortBy(badges, badge => badge.get('name'));
+  grantableBadges() {
+    return UserBadge.calculateGrantableBadges(this.get('allBadges'), this.get('badgesInUse'));
   },
 
   actions: {
