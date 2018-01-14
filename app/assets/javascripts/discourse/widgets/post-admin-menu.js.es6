@@ -84,6 +84,14 @@ export function buildManageButtons(attrs, currentUser) {
     }
   }
 
+  if (currentUser.staff) {
+    contents.push({
+      icon: 'wrench',
+      label: 'post.controls.grant_badge',
+      action: 'grantBadge',
+    });
+  }
+
   return contents;
 }
 

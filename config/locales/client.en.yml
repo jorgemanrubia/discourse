@@ -1978,6 +1978,7 @@ en:
         rebake: "Rebuild HTML"
         unhide: "Unhide"
         change_owner: "Change Ownership"
+        grant_badge: "Grant badge"
 
       actions:
         flag: 'Flag'

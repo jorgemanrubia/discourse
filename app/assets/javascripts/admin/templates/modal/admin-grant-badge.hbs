@@ -1,0 +1,17 @@
+{{#d-modal-body title='admin.badges.grant_badge'}}
+  {{#conditional-loading-spinner condition=loading}}
+    <form class="form-horizontal">
+      <div>
+        <label>{{i18n 'admin.badges.badge'}}</label>
+        {{combo-box filterable=true value=selectedBadgeId content=grantableBadges}}
+      </div>
+    </form>
+  {{/conditional-loading-spinner}}
+{{/d-modal-body}}
+
+<div class="modal-footer">
+  <button class='btn btn-primary' {{action "grantBadge" selectedBadgeId}}>{{i18n
+          'admin.badges.grant'}}</button>
+</div>
+
+

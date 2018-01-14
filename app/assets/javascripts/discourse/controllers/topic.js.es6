@@ -13,6 +13,7 @@ import { extractLinkMeta } from 'discourse/lib/render-topic-featured-link';
 import { popupAjaxError } from 'discourse/lib/ajax-error';
 import { spinnerHTML } from 'discourse/helpers/loading-spinner';
 import { userPath } from 'discourse/lib/url';
+import showModal from 'discourse/lib/show-modal';
 
 export default Ember.Controller.extend(BufferedContent, {
   composer: Ember.inject.controller(),
@@ -673,6 +674,11 @@ export default Ember.Controller.extend(BufferedContent, {
 
     toggleWiki(post) {
       return post.updatePostField('wiki', !post.get('wiki'));
+    },
+
+    grantBadge(post) {
+      let controller = showModal('admin-grant-badge', { admin: true });
+      return controller.loadBadges(post);
     },
 
     togglePostType(post) {
