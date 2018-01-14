@@ -51,12 +51,14 @@ QUnit.test('destroy', assert => {
 });
 
 QUnit.test('calculateGrantableBadges', assert => {
-  const badges = [1, 2, 3, 4].map(id => Badge.create({id: id, name: `Badge ${id}`, enabled: true}));
+  // Badge names in reverse order to test sort by name
+  const badges = _.range(5).map(id => Badge.create({id: id, name: `Badge ${5-id}`, enabled: true}));
+  badges[0].set('enabled', false);
   badges[1].set('multiple_grant', true);
 
-  const grantableBadges = Badge.calculateGrantableBadges(badges, [0, 1]);
+  const grantableBadges = Badge.calculateGrantableBadges(badges, [1, 2]);
 
   assert.ok(Array.isArray(grantableBadges));
-  const expectedGrantableBadges = [badges[1], badges[2], badges[3]];
+  const expectedGrantableBadges = [badges[4], badges[3], badges[1]];
   assert.deepEqual(grantableBadges, expectedGrantableBadges);
 });
