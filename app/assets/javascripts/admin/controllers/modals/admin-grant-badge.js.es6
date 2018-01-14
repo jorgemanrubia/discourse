@@ -20,6 +20,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
     this._findBadges().then(result => {
       this.set('userBadges', result.userBadges);
       this.set('allBadges', result.allBadges);
+      this._selectFirstGrantableBadge();
     }).finally(() => this.set('loading', false));
   },
 
@@ -31,6 +32,13 @@ export default Ember.Controller.extend(ModalFunctionality, {
       userBadges,
       allBadges
     });
+  },
+
+  _selectFirstGrantableBadge(){
+    const grantableBadges = this.get('grantableBadges');
+
+    if (grantableBadges.length > 0)
+      this.set('selectedBadgeId', grantableBadges[0].get('id'));
   },
 
   @computed('userBadges.[]', 'allBadges.[]')
