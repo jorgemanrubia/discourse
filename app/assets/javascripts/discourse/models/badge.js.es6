@@ -161,7 +161,7 @@ Badge.reopenClass({
    @method calculateGrantableBadges
    @param {Array} allBadges
    @param {Array} usedBadgesIds list of ids for badges in use
-   @returns {Array} an array containing the grantable badges.
+   @returns {Array} the list of grantable badges.
    **/
   calculateGrantableBadges: function (allBadges, usedBadgesIds) {
     var granted = {};
